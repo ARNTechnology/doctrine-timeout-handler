@@ -167,7 +167,7 @@ class ConnetionCheck
     {
         try {
             return call_user_func_array($execute);
-        } catch (\Throwable $t) {
+        } catch (\Throwable $e) {
             // Executed only in PHP 7, will not match in PHP 5
             return call_user_func_array($onError, $e);
         } catch (\Exception $e) {
