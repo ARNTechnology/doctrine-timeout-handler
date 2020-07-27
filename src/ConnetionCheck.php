@@ -60,7 +60,7 @@ class ConnetionCheck
      * @param LoggerInterface|null $logger
      * @throws \Exception|\Throwable
      */
-    public function reconnect(Connection $connection, LoggerInterface $logger = null)
+    public static function reconnect(Connection $connection, LoggerInterface $logger = null)
     {
         if (is_null($logger)) {
             $logger = new NullLogger();
@@ -86,7 +86,7 @@ class ConnetionCheck
      * @return bool
      * @throws \Exception
      */
-    public function isTrulyConnected(Connection $connection, LoggerInterface $logger = null)
+    public static function isTrulyConnected(Connection $connection, LoggerInterface $logger = null)
     {
         if (is_null($logger)) {
             $logger = new NullLogger();
@@ -101,7 +101,7 @@ class ConnetionCheck
      * @return bool
      * @throws \Exception
      */
-    public function isConnected(Connection $connection, LoggerInterface $logger = null)
+    public static function isConnected(Connection $connection, LoggerInterface $logger = null)
     {
         if (is_null($logger)) {
             $logger = new NullLogger();
@@ -132,7 +132,7 @@ class ConnetionCheck
      * @return bool
      * @throws \Exception
      */
-    public function isPingable(Connection $connection, LoggerInterface $logger = null)
+    public static function isPingable(Connection $connection, LoggerInterface $logger = null)
     {
         if (is_null($logger)) {
             $logger = new NullLogger();
@@ -166,13 +166,13 @@ class ConnetionCheck
     private static function softErrorExecuter(callable $execute, callable $onError)
     {
         try {
-            return call_user_func_array($execute);
+            return call_user_func_array($execute, []);
         } catch (\Throwable $e) {
             // Executed only in PHP 7, will not match in PHP 5
-            return call_user_func_array($onError, $e);
+            return call_user_func_array($onError, [$e]);
         } catch (\Exception $e) {
             // Executed only in PHP 5, will not be reached in PHP 7
-            return call_user_func_array($onError, $e);
+            return call_user_func_array($onError, [$e]);
         }
         throw new \Exception("Something unusual happened. This statement should not have been reached.");
     }

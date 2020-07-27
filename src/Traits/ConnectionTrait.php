@@ -9,9 +9,11 @@ namespace ARNTech\DoctrineTimeout\Traits;
 
 use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Configuration;
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Driver;
 use ARNTech\DoctrineTimeout\ConnetionCheck;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
+use Doctrine\DBAL\Driver\PingableConnection;
 
 trait ConnectionTrait
 {
@@ -70,6 +72,24 @@ trait ConnectionTrait
     {
         $this->handleConnectionBeforehand();
         call_user_func_array(array('parent', __FUNCTION__), func_get_args());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function ping()
+    {
+        $this->connect();
+        if ($this->_conn instanceof PingableConnection) {
+            return $this->_conn->ping();
+        }
+
+        try {
+            parent::query($this->getDatabasePlatform()->getDummySelectSQL());
+            return true;
+        } catch (DBALException $e) {
+            return false;
+        }
     }
 
     private function handleConnectionBeforehand()
