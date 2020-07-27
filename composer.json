@@ -18,6 +18,7 @@
     }
   ],
   "require": {
+    "php": "^5.6 || ^7.0",
     "psr/log": "*",
     "facile-it/doctrine-mysql-come-back": "*"
   },
