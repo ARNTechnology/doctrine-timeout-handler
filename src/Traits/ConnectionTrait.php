@@ -41,7 +41,7 @@ trait ConnectionTrait
     public function executeQuery($query, array $params = array(), $types = array(), QueryCacheProfile $qcp = null)
     {
         $this->handleConnectionBeforehand();
-        call_user_func_array(array('parent', __FUNCTION__), func_get_args());
+        return call_user_func_array(array('parent', __FUNCTION__), func_get_args());
     }
 
     /**
@@ -50,7 +50,7 @@ trait ConnectionTrait
     public function query()
     {
         $this->handleConnectionBeforehand();
-        call_user_func_array(array('parent', __FUNCTION__), func_get_args());
+        return call_user_func_array(array('parent', __FUNCTION__), func_get_args());
     }
 
     /**
@@ -59,7 +59,7 @@ trait ConnectionTrait
     public function executeUpdate($query, array $params = array(), array $types = array())
     {
         $this->handleConnectionBeforehand();
-        call_user_func_array(array('parent', __FUNCTION__), func_get_args());
+        return call_user_func_array(array('parent', __FUNCTION__), func_get_args());
     }
 
     /**
