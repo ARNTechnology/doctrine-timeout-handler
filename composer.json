@@ -1,0 +1,32 @@
+{
+  "name": "arntech/doctrine-timeout-handler",
+  "type": "library",
+  "description": "ARNTech Doctrine Timeout handler.",
+  "keywords": [
+    "doctrine",
+    "timeout",
+    "doctrine timeout",
+    "time out",
+    "doctrine time out"
+  ],
+  "license": "GPL-3.0-only",
+  "authors": [
+    {
+      "name": "Alexandru Negrila",
+      "email": "alex-codes@arntech.ro",
+      "homepage": "https://github.com/alxnegrila"
+    }
+  ],
+  "require": {
+    "psr/log": "*",
+    "facile-it/doctrine-mysql-come-back": "*"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "ARNTech\\DoctrineTimeout\\": "src/"
+    }
+  }
+}
