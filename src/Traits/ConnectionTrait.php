@@ -11,6 +11,7 @@ use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\Driver;
 use ARNTech\DoctrineTimeout\ConnetionCheck;
+use Doctrine\DBAL\Cache\QueryCacheProfile;
 
 trait ConnectionTrait
 {
