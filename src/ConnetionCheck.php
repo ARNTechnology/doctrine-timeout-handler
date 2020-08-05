@@ -163,7 +163,7 @@ class ConnetionCheck
      * @return mixed
      * @throws \Exception
      */
-    private static function softErrorExecuter(callable $execute, callable $onError)
+    public static function softErrorExecuter(callable $execute, callable $onError)
     {
         try {
             return call_user_func_array($execute, []);

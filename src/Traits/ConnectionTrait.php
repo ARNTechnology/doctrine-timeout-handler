@@ -79,13 +79,37 @@ trait ConnectionTrait
      */
     public function ping()
     {
+        return ConnetionCheck::softErrorExecuter(
+            function () {
+                return $this->parentPing();
+            },
+            function ($e) {
+                return false;
+            }
+        );
+    }
+
+    /**
+     * This is a adaptation of Doctrine\DBAL\Connection::ping()
+     * It is meant to bypass circular refference by calling query on parent
+     * @return bool
+     * @throws \Exception
+     */
+    private function parentPing()
+    {
         $this->connect();
         if ($this->_conn instanceof PingableConnection) {
             return $this->_conn->ping();
         }
 
         try {
-            parent::query($this->getDatabasePlatform()->getDummySelectSQL());
+            $sts = @parent::query($this->getDatabasePlatform()->getDummySelectSQL());
+            if (!empty($err = error_get_last())) {
+                if (strpos($err['message'], 'SQL') !== FALSE) {
+                    return false;
+                }
+            }
+
             return true;
         } catch (DBALException $e) {
             return false;
